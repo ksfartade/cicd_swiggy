@@ -8,6 +8,9 @@ ENV PYTHONUNBUFFERED=1
 # Set working directory in the container
 WORKDIR /app
 
+# creating non-root user for this application.
+RUN useradd -ms /bin/bash django
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -23,6 +26,13 @@ RUN pip install -r requirements.txt
 
 # Copy project files
 COPY . .
+RUN chown -R django:django /app
+
+# switching to new user
+USER django
+
+# volume for SQlite DB.
+VOLUME [ "/app/db" ]
 
 # Collect static files (optional for prod)
 # RUN python manage.py collectstatic --noinput
