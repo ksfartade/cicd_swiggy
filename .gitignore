@@ -154,7 +154,7 @@ Thumbs.db
 staticfiles/
 media/
 
-*/migrations/*
+# */migrations/*
 
 # Docker
 .dockerignore
