@@ -31,9 +31,6 @@ RUN chown -R django:django /app
 # switching to new user
 USER django
 
-# volume for SQlite DB.
-VOLUME [ "/app/db" ]
-
 # Collect static files (optional for prod)
 # RUN python manage.py collectstatic --noinput
 
