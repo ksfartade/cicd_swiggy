@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage('Remove previous docker image') {
+            steps {
+                echo "🐳 Removing previous Docker image..."
+                sh 'docker-compose down'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 echo "🐳 Building Docker image..."
