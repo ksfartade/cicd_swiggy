@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "swiggy_cicd"
-        DOCKER_COMPOSE_FILE = "docker-compose.yml"
+        DOCKER_COMPOSE_FILE = "compose.yml"
     }
 
     stages {
@@ -17,28 +17,28 @@ pipeline {
         stage('Remove previous docker image') {
             steps {
                 echo "🐳 Removing previous Docker image..."
-                sh 'docker-compose down'
+                sh 'docker compose down'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo "🐳 Building Docker image..."
-                sh 'docker-compose build'
+                sh 'docker compose build'
             }
         }
 
         stage('Run Django Container') {
             steps {
                 echo "🚀 Starting container..."
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
         }
 
         stage('Run Migrations') {
             steps {
                 echo "🔄 Applying database migrations..."
-                sh 'docker-compose exec django python manage.py migrate --noinput'
+                sh 'docker compose exec django python manage.py migrate --noinput'
             }
         }
 
