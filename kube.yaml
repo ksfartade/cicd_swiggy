@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodedb-app       # name of the deployment
+  labels:
+    app: react-mongo-app    # lable for deployment. So that we can filter teh deployments with this label easily.
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-mongo-app    # this table must match with below defined label of template.
+  template:
+    metadata:
+      labels:
+        app: react-mongo-app    # pod's label.
+    spec:
+      containers:
+      - name: react-app     # name of the contianer running inside pod.
+        image: philippaul/node-mongo-db:02
+        ports:
+        - containerPort: 3000
+      - name: mongo-app 
+        image: mongo:latest
